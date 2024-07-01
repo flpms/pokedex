@@ -19,6 +19,12 @@ export class PokemonService {
   public getAllPokemons(page: number = 1) {
     return this.http
       .get(`${this.host}/pokemon?page=${page}`)
-      .pipe(catchError(this.handleError('getUser')));
+      .pipe(catchError(this.handleError('getAllPokemons')));
+  }
+
+  public getPokemonDetail(id: number) {
+    return this.http
+      .get(`${this.host}/pokemon/${id}`)
+      .pipe(catchError(this.handleError('getPokemonDetail')));
   }
 }
