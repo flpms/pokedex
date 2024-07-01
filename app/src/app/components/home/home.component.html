@@ -1,0 +1,13 @@
+<div class="pokelist">
+  @for (pokemon of pokemons; track pokemon.id) {
+    <div class="pokelist-item">
+      <a class="pokelist-item-img" routerLink="detail/{{pokemon.id}}">
+        <img src="{{pokemon?.sprites?.front_default}}" alt="{{pokemon.name}}" >
+      </a>
+      <div class="pokelist-item-name">
+        {{ pokemon.name }}
+      </div>
+    </div>
+  }
+</div>
+<button (click)="nextPage()">Load More</button>
