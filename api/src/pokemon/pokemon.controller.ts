@@ -1,5 +1,10 @@
 import { Controller, Get, Logger } from "@nestjs/common";
-import { Query } from "@nestjs/common";
+import {
+  Param,
+  Query,
+  NotFoundException,
+  ServiceUnavailableException,
+} from "@nestjs/common";
 
 import { IPokedex, IPokemonPage } from "../interfaces/pokedex.interfaces";
 import { IListAllPaginationParams } from "../interfaces/endpoint.interfaces";
@@ -15,7 +20,7 @@ export class PokemonController {
   async listAll(
     @Query() params: IListAllPaginationParams
   ): Promise<IPokemonPage[]> {
-    this.logger.log(`PokemonController::listAll - ${params.page}`);
+    this.logger.log(`PokemonController::listAll - page(${params.page})`);
 
     const pokemonService: PokemonService = this.pokemonService;
 
@@ -37,7 +42,23 @@ export class PokemonController {
 
       return pokemonsByName;
     } catch (error) {
-      throw error;
+      this.logger.error(`PokemonController::ListAll:Exception - ${error}`);
+      throw new ServiceUnavailableException();
     }
+  }
+
+  @Get(":id")
+  async getById(@Param("id") id: number): Promise<IPokemonPage> {
+    this.logger.log(`PokemonController::getById - [${id}]`);
+
+    const pokemonService: PokemonService = this.pokemonService;
+    const result = await pokemonService.getById(id);
+
+    if (!result) {
+      this.logger.warn(`PokemonController::getById - ${id} not found`);
+      throw new NotFoundException();
+    }
+
+    return result;
   }
 }

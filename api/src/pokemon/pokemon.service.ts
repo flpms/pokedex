@@ -62,4 +62,23 @@ export class PokemonService {
       throw error;
     }
   }
+
+  async getById(id: number): Promise<any> {
+    try {
+      this.logger.log(`PokemonService::getById - ${id}`);
+      const result = await this.request("GET", `pokemon/${id}`);
+
+      if (!result.ok) {
+        const errorMessage = await result.text();
+        this.logger.error(`PokemonService::getById - ${errorMessage}`);
+        return [];
+      }
+
+      return result.json();
+    } catch (error: unknown) {
+      const errorMessage = (error as Error).message || 'Unknown error';
+      this.logger.error(`PokemonService::getById - ${errorMessage}`);
+      throw error;
+    }
+  }
 }
