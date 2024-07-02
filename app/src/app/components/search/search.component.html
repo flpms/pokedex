@@ -1,0 +1,20 @@
+<div class="search-box">
+  <div class="search">
+    <input [formControl]="searchInput" type="text" id="name" name="name" class="search-input"
+      placeholder="type to search a pokemon" required minlength="4" (keyup)="searchPokemon()">
+  </div>
+
+  <div class="result-box">
+    <div class="result-list">
+      @for (item of searchResult; track $index) {
+        <div class="result-list-item" (click)="navPokemonDetails(item.id || 0)">
+          <p>{{item.name}}</p>
+        </div>
+      }
+    </div>
+
+    @if (searchResult[0]) {
+    <p class="result-box-total">results: {{searchResult.length}}</p>
+    }
+  </div>
+</div>
