@@ -6,9 +6,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --light-color: #F9F9F9;
+}
+
 html, body {
   height: 100%;
 }
+
 
 $colors: (
   normal: #A8A77A,
