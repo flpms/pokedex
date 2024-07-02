@@ -1,0 +1,61 @@
+<div class="detail">
+  @if (loading && !pokemon) {
+    <app-loading></app-loading>
+  } @else {
+    <div class="pokemon background-{{pokemon.mainType}}">
+      <div class="header">
+        <button (click)="goBack()" class="transparent-button shadow-{{pokemon.mainType}}">
+          <i class="material-symbols-outlined">
+            chevron_left</i> Pokedex
+        </button>
+
+        <div class="name">
+          <h1 class="shadow-{{pokemon.mainType}}">{{ pokemon.name }}</h1>
+          <span class="pokeid">#{{pokemon.id}}</span>
+        </div>
+
+        <button (click)="setFavorite()" class="transparent-button shadow-{{pokemon.mainType}}">
+          <i class="material-symbols-outlined">
+            star</i>
+        </button>
+      </div>
+
+      <img src="{{pokemon.image}}" alt="{{ pokemon.name }} image" >
+
+      <div class="card-info">
+        <div class="types">
+          @for (type of pokemon.types; track $index) {
+            <p class="background-{{type}} shadow-{{type}} bullet">
+              {{ type }}
+            </p>
+          }
+        </div>
+
+        <div class="size">
+          <p class="text-icon">
+            <i class="material-symbols-outlined">height</i>
+            {{ pokemon.height }}m
+          </p>
+
+          <p class="text-icon">
+            <i class="material-symbols-outlined">weight</i>
+            {{ pokemon.weight }} kg
+          </p>
+        </div>
+
+        <div class="load-bar-stats">
+          @for (stat of pokemon.stats; track $index) {
+            <div class="stat">
+              <div class="label">{{ stat.name }}</div>
+
+              <div class="stat-bar">
+                <div class="stat-progress" [style.width.%]="stat.value" title="{{stat.value}}"></div>
+              </div>
+            </div>
+          }
+        </div>
+
+      </div>
+    </div>
+  }
+</div>

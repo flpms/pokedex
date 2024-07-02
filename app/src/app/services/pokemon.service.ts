@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class PokemonService {
@@ -24,7 +24,21 @@ export class PokemonService {
 
   public getPokemonDetail(id: number) {
     return this.http
-      .get(`${this.host}/pokemon/${id}`)
+      .get(`${this.host}/pokemon/detail/${id}`)
       .pipe(catchError(this.handleError('getPokemonDetail')));
+  }
+
+  public searchPokemon(name: string | null) {
+    return this.http
+      .get(`${this.host}/pokemon/search?name=${name}`)
+      .pipe(catchError(this.handleError('searchPokemon')));
+  }
+
+  public setFavorite(id: number) {
+    window.localStorage.setItem(`pokemon-${id}`, 'true');
+  }
+
+  public getFavorite(id: number) {
+    return window.localStorage.getItem(`pokemon-${id}`);
   }
 }

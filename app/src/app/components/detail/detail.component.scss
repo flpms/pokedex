@@ -1,0 +1,125 @@
+
+.detail {
+  .transparent-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    color: #F9F9F9;
+    justify-content: center;
+  }
+
+  .pokemon {
+    img {
+      display: block;
+      height: 380px;
+      margin: 0 auto;
+    }
+
+    .header {
+      color: #F9F9F9;
+      display: flex;
+      height: fit-content;
+      justify-content: space-between;
+      min-height: 6rem;
+      padding: 0.6rem;
+
+      .name {
+        display: flex;
+        align-items: center;
+
+        h1 {
+          text-transform: capitalize;
+        }
+
+        span.pokeid {
+          color: gray;
+          font-size: 1rem;
+          margin-left: 1rem;
+        }
+      }
+    }
+  }
+
+  .card-info {
+    background-color: white;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    box-shadow:rgba(0, 0, 0, .7) -0.3rem -0.3rem 20rem;
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    justify-content: flex-start;
+    margin: -2rem auto 0 auto;
+    min-height: 30rem;
+    max-width: fit-content;
+    padding: 1.6rem;
+
+    .types {
+      display: flex;
+      justify-content: space-around;
+
+      .bullet {
+        cursor: default;
+        color: #F9F9F9;
+        border-radius: 3.4375rem;
+        display: inline-block;
+        margin: 1rem 0.5rem;
+        padding: 0.5rem;
+        min-width: 7.5rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+
+    .size {
+      color: #666;
+      display: flex;
+      font-size: 1.6rem;
+      justify-content: space-between;
+
+      .text-icon {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .load-bar-stats {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      margin-top: 2rem;
+
+      .stat {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        min-width: 280px;
+
+        .label {
+          color: #666;
+          font-size: 1rem;
+          margin-bottom: 0.5rem;
+          text-transform: uppercase;
+          text-align: left;
+          min-width: 200px;
+        }
+
+        &-bar {
+          background-color: #F9F9F9;
+          border: 1px solid rgba(0, 0, 0, .2);
+          height: 0.6rem;
+          width: 7.5rem;
+          border-radius: 0.25rem;
+        }
+
+        &-progress {
+          height: 100%;
+          background-color: #FF6B6B;
+          border-radius: 0.25rem;
+        }
+      }
+    }
+  }
+}
