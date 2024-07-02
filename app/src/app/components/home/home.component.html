@@ -1,13 +1,32 @@
-<div class="pokelist">
-  @for (pokemon of pokemons; track pokemon.id) {
-    <div class="pokelist-item">
-      <a class="pokelist-item-img" routerLink="detail/{{pokemon.id}}">
-        <img src="{{pokemon?.sprites?.front_default}}" alt="{{pokemon.name}}" >
-      </a>
-      <div class="pokelist-item-name">
-        {{ pokemon.name }}
-      </div>
+<div class="home">
+
+  <app-search></app-search>
+
+  @if (!pokemons[0] && loading) {
+    <div class="center-loading">
+      <app-loading></app-loading>
+    </div>
+  } @else {
+    <div class="pokelist">
+      @for (pokemon of pokemons; track pokemon.id) {
+        <div class="pokelist-item  background-{{pokemon.mainType}}">
+          <a class="pokelist-item-img" routerLink="../detail/{{pokemon.id}}">
+            <img src="{{pokemon?.image}}" alt="{{pokemon.name}}" >
+          </a>
+          <p class="pokelist-item-name shadow-{{pokemon.mainType}}">
+            <span>{{ pokemon.name }}</span>
+            <span>#{{ pokemon.id }}</span>
+          </p>
+        </div>
+      }
+
+      @if (loading) {
+        <app-loading></app-loading>
+      }
     </div>
   }
+  <div class="action-area">
+    <button (click)="nextPage()" class="next-page">Load More</button>
+  </div>
+
 </div>
-<button (click)="nextPage()">Load More</button>
