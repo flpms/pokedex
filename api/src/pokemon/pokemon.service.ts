@@ -71,7 +71,7 @@ export class PokemonService {
       if (!result.ok) {
         const errorMessage = await result.text();
         this.logger.error(`PokemonService::getById - ${errorMessage}`);
-        return [];
+        return null;
       }
 
       return result.json();
