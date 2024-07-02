@@ -1,7 +1,7 @@
 <div class="detail">
   @if (loading && !pokemon) {
     <app-loading></app-loading>
-  } @else {
+  } @else if (pokemon) {
     <div class="pokemon background-{{pokemon.mainType}}">
       <div class="header">
         <button (click)="goBack()" class="transparent-button shadow-{{pokemon.mainType}}">
@@ -19,6 +19,8 @@
             star</i>
         </button>
       </div>
+
+      <app-search></app-search>
 
       <img src="{{pokemon.image}}" alt="{{ pokemon.name }} image" >
 

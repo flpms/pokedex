@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { IPokemon } from './pokemon.interface';
 
 import { PokemonService } from '../../services/pokemon.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [LoadingComponent],
+  imports: [LoadingComponent, SearchComponent],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss',
 })
@@ -19,25 +21,27 @@ export class DetailComponent {
   public pokemon: IPokemon | null = null;
 
   constructor(
+    private location: Location,
     private pokemonService: PokemonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.selectedId = Number(this.route.snapshot.paramMap.get('id'));
-    return this.pokemonService
-      .getPokemonDetail(this.selectedId)
-      .subscribe((data: any) => {
+    this.route.params.subscribe(() => {
+      this.selectedId = Number(this.route.snapshot.paramMap.get('id'));
+      this.pokemonService
+        .getPokemonDetail(this.selectedId)
+        .subscribe((data: any) => {
+          this.pokemon = {
+            ...data,
+            height: this.getDecimal(data.height),
+            stats: this.getStats(data.stats),
+            weight: this.getDecimal(data.weight),
+          };
 
-        this.pokemon = {
-          ...data,
-          height: this.getDecimal(data.height),
-          stats: this.getStats(data.stats),
-          weight: this.getDecimal(data.weight),
-        };
-
-        this.loading = false;
-      });
+          this.loading = false;
+        });
+    });
   }
 
   private getStats(stats: Array<any>) {
@@ -48,7 +52,7 @@ export class DetailComponent {
   }
 
   public goBack() {
-    window.history.back();
+    this.location.back();
   }
 
   public setFavorite() {
