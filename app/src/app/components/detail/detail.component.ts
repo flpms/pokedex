@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { IPokemon } from './pokemon.interface';
+import { IPokemon } from '../../interfaces/pokemon.interface';
 
 import { PokemonService } from '../../services/pokemon.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
@@ -11,7 +10,7 @@ import { SearchComponent } from '../search/search.component';
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [LoadingComponent, SearchComponent],
+  imports: [LoadingComponent, Router, SearchComponent],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss',
 })
@@ -21,9 +20,9 @@ export class DetailComponent {
   public pokemon: IPokemon | null = null;
 
   constructor(
-    private location: Location,
     private pokemonService: PokemonService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -52,7 +51,7 @@ export class DetailComponent {
   }
 
   public goBack() {
-    this.location.back();
+    this.router.navigate(['/']);
   }
 
   public setFavorite() {

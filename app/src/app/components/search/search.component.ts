@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { PokemonService } from '../../services/pokemon.service';
