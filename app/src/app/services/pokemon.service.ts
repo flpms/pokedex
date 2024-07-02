@@ -46,4 +46,8 @@ export class PokemonService {
   public getFavorite(id: number) {
     return window.localStorage.getItem(`pokemon-${id}`);
   }
+
+  public removeFavorite(id: number) {
+    window.localStorage.removeItem(`pokemon-${id}`);
+  }
 }

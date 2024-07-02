@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 import { IPokemon } from '../../interfaces/pokemon.interface';
 
@@ -10,7 +10,7 @@ import { SearchComponent } from '../search/search.component';
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [LoadingComponent, Router, SearchComponent],
+  imports: [LoadingComponent, RouterModule, SearchComponent],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss',
 })
@@ -22,7 +22,7 @@ export class DetailComponent {
   constructor(
     private pokemonService: PokemonService,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -31,11 +31,16 @@ export class DetailComponent {
       this.pokemonService
         .getPokemonDetail(this.selectedId)
         .subscribe((data: any) => {
+          const checkFavorite = this.pokemonService.getFavorite(
+            this.selectedId
+          );
+
           this.pokemon = {
             ...data,
             height: this.getDecimal(data.height),
             stats: this.getStats(data.stats),
             weight: this.getDecimal(data.weight),
+            favorite: !!checkFavorite,
           };
 
           this.loading = false;
@@ -54,8 +59,17 @@ export class DetailComponent {
     this.router.navigate(['/']);
   }
 
-  public setFavorite() {
+  public toogleFavorite() {
+    if (this.pokemon === null) return;
+
+    if (this.pokemon.favorite) {
+      this.pokemonService.removeFavorite(this.selectedId);
+      this.pokemon.favorite = false;
+      return;
+    }
+
     this.pokemonService.setFavorite(this.selectedId);
+    this.pokemon.favorite = true;
   }
 
   public getDecimal(value: number) {

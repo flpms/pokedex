@@ -7,6 +7,7 @@ export interface IPokemon {
   height: number;
   stats: IStat[];
   weight: number;
+  favorite: boolean
 }
 
 interface IStat {

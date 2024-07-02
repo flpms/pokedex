@@ -5,7 +5,7 @@
     <div class="pokemon background-{{pokemon.mainType}}">
       <div class="header">
         <button (click)="goBack()" class="transparent-button shadow-{{pokemon.mainType}}">
-          <i class="material-symbols-outlined">
+          <i class="material-icons">
             chevron_left</i> Pokedex
         </button>
 
@@ -14,9 +14,14 @@
           <span class="pokeid">#{{pokemon.id}}</span>
         </div>
 
-        <button (click)="setFavorite()" class="transparent-button shadow-{{pokemon.mainType}}">
-          <i class="material-symbols-outlined">
-            star</i>
+        <button (click)="toogleFavorite()" class="transparent-button shadow-{{pokemon.mainType}}">
+          <i class="material-icons">
+            @if (pokemon.favorite) {
+              favorite
+            } @else {
+              favorite_border
+            }
+          </i>
         </button>
       </div>
 
@@ -35,12 +40,12 @@
 
         <div class="size">
           <p class="text-icon">
-            <i class="material-symbols-outlined">height</i>
+            <i class="material-icons">height</i>
             {{ pokemon.height }}m
           </p>
 
           <p class="text-icon">
-            <i class="material-symbols-outlined">weight</i>
+            <i class="material-icons">scale</i>
             {{ pokemon.weight }} kg
           </p>
         </div>
