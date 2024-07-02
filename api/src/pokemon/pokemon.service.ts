@@ -27,7 +27,7 @@ export class PokemonService {
       this.logger.log(`PokemonService::getAll - ${limit} - ${offset}`);
       const result = await this.request(
         "GET",
-        `/pokemon?limit=${limit}&offset=${offset}`
+        `pokemon?limit=${limit}&offset=${offset}`
       );
 
       if (!result.ok) {
@@ -47,7 +47,7 @@ export class PokemonService {
   async getByName(name: string): Promise<any> {
     try {
       this.logger.log(`PokemonService::getByName - ${name}`);
-      const result = await this.request("GET", `/pokemon/${name}`);
+      const result = await this.request("GET", `pokemon/${name}`);
 
       if (!result.ok) {
         const errorMessage = await result.text();
