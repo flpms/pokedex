@@ -1,0 +1,29 @@
+services:
+  api:
+    container_name: api
+    build: ./api
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./api/logs:/app/logs
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+  app:
+    container_name: app
+    build: ./app
+    ports:
+      - 8080:8080
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./web/logs:/app/logs
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
